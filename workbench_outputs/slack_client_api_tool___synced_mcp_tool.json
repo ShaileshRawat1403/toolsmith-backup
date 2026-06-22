@@ -1,0 +1,26 @@
+{
+  "agentDeclaration": {
+    "name": "post_slack_message",
+    "description": "Send a formatted message to a live Slack channel segment.",
+    "parameters": {
+      "type": "OBJECT",
+      "properties": {
+        "channel": {
+          "type": "STRING",
+          "description": "The target Slack Channel ID (e.g., C12345)"
+        },
+        "text": {
+          "type": "STRING",
+          "description": "Short description / fallback warning alert text"
+        }
+      },
+      "required": [
+        "channel",
+        "text"
+      ]
+    }
+  },
+  "javascriptWrapper": "export async function postSlackMessage(channel: string, text: string) {\n  const res = await fetch('https://slack.com/api/chat.postMessage', {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/json' },\n    body: JSON.stringify({ channel, text })\n  });\n  return res.json();\n}",
+  "requestPayload": "{\n  \"channel\": \"C12345\",\n  \"text\": \"Deploy success alert from ToolSmith\"\n}",
+  "responsePayload": "{\n  \"ok\": true,\n  \"channel\": \"C12345\",\n  \"ts\": \"1696543200.000100\"\n}"
+}
